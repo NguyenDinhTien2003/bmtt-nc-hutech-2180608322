@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify
 from cipher.caesar import CaesarCipher
+from cipher.vigenere import VigenereCipher  
 
 app = Flask(__name__)
 
-# CAESAR CIPHER ALGORITHM
 caesar_cipher = CaesarCipher()
+vigenere_cipher = VigenereCipher()
 
 @app.route("/api/caesar/encrypt", methods=["POST"])
 def caesar_encrypt():
