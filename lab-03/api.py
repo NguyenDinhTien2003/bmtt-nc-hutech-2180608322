@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
 from cipher.rsa import RSACipher # Import module RSA vừa làm
+from cipher.ecc import ECCCipher 
 
 app = Flask(__name__)
 
-# Khởi tạo đối tượng RSA
+
 rsa_cipher = RSACipher()
+ecc_cipher = ECCCipher() 
 
 # API 1: Tạo cặp khóa (Public/Private)
 @app.route('/api/rsa/generate_keys', methods=['GET'])
@@ -74,6 +76,29 @@ def verify():
     
     # Xác thực bằng Public Key
     is_verified = rsa_cipher.verify(message, signature, public_key)
+    return jsonify({'is_verified': is_verified})
+
+# ----------------------------
+# ECC API
+# ----------------------------
+@app.route('/api/ecc/generate_keys', methods=['GET'])
+def ecc_generate_keys():
+    ecc_cipher.generate_keys()
+    return jsonify({'message': 'Keys generated successfully'})
+
+@app.route('/api/ecc/sign', methods=['POST'])
+def ecc_sign():
+    data = request.json
+    message = data['message']
+    signature = ecc_cipher.sign(message)
+    return jsonify({'signature': signature})
+
+@app.route('/api/ecc/verify', methods=['POST'])
+def ecc_verify():
+    data = request.json
+    message = data['message']
+    signature = data['signature']
+    is_verified = ecc_cipher.verify(message, signature)
     return jsonify({'is_verified': is_verified})
 
 # Chạy Server
