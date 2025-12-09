@@ -17,6 +17,8 @@ railfence_cipher = RailFenceCipher()
 playfair_cipher = PlayfairCipher()
 # TRANSPOSITION CIPHER ALGORITHM
 transposition_cipher = TranspositionCipher()
+# RSA CIPHER ALGORITHM
+rsa_cipher = RSACipher()
 
 @app.route("/api/caesar/encrypt", methods=["POST"])
 def caesar_encrypt():
