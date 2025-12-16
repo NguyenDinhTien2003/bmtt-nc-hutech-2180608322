@@ -1,0 +1,12 @@
+[req]
+default_bits = 2048
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C=VN
+ST=State
+L=Location
+O=Organization
+OU=Organizational Unit
+CN=localhost
